@@ -1,0 +1,311 @@
+/* index.css — v10: Design System CMAC Arequipa */
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Variables ─────────────────────────── */
+:root {
+  --navy:   #0D2461;
+  --blue:   #1A3A8F;
+  --teal:   #00A896;
+  --teal2:  #00C9B1;
+  --teal-light: #E6F8F6;
+  --gold:   #FFB300;
+  --red:    #E24B4A;
+  --green:  #16A34A;
+  --purple: #7C3AED;
+  --bg:     #F0F4FF;
+  --bg2:    #F8FAFF;
+  --white:  #ffffff;
+  --border: #E2E8F6;
+  --border2:#DDE2F0;
+  --text:   #0D2461;
+  --text2:  #374060;
+  --muted:  #7B84A3;
+  --muted2: #A0A8C0;
+
+  --radius-sm:  8px;
+  --radius:     12px;
+  --radius-lg:  16px;
+  --radius-xl:  20px;
+
+  --shadow-sm:  0 1px 4px rgba(13,36,97,.06);
+  --shadow:     0 4px 16px rgba(13,36,97,.10);
+  --shadow-lg:  0 8px 32px rgba(13,36,97,.14);
+  --shadow-teal: 0 4px 20px rgba(0,168,150,.25);
+}
+
+/* ── Reset ─────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 14px;
+  color: var(--text);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.5;
+}
+
+/* ── Tipografía ────────────────────────── */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Sora', sans-serif;
+  font-weight: 700;
+  color: var(--navy);
+  margin: 0;
+  line-height: 1.25;
+  letter-spacing: -.02em;
+}
+
+p { margin: 0; }
+a { color: var(--teal); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ── Scrollbar ─────────────────────────── */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: var(--muted2); }
+
+/* ── Componentes base ──────────────────── */
+.card {
+  background: var(--white);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  padding: 16px;
+  transition: box-shadow .2s, transform .2s;
+}
+.card:hover { box-shadow: var(--shadow); }
+.card-elevated {
+  box-shadow: var(--shadow);
+}
+.card-elevated:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-1px);
+}
+
+/* ── Botones ───────────────────────────── */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 10px 20px; border-radius: var(--radius-sm);
+  font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 700;
+  border: none; cursor: pointer; transition: all .2s; outline: none;
+  white-space: nowrap; text-decoration: none;
+}
+.btn:hover { transform: translateY(-1px); }
+.btn:active { transform: translateY(0); }
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--teal2), var(--teal));
+  color: #fff; box-shadow: var(--shadow-teal);
+}
+.btn-primary:hover { box-shadow: 0 6px 24px rgba(0,168,150,.4); }
+
+.btn-secondary {
+  background: var(--bg);
+  color: var(--navy); border: 1.5px solid var(--border);
+}
+.btn-secondary:hover { border-color: var(--teal); background: var(--teal-light); }
+
+.btn-ghost {
+  background: transparent;
+  color: var(--navy); border: 1.5px solid var(--border);
+}
+.btn-ghost:hover { background: var(--bg); }
+
+.btn-danger {
+  background: #FEE2E2; color: #DC2626;
+  border: 1.5px solid #FECACA;
+}
+.btn-danger:hover { background: #FCA5A5; }
+
+.btn-sm { padding: 7px 14px; font-size: 12px; border-radius: 8px; }
+.btn-lg { padding: 14px 28px; font-size: 15px; border-radius: 14px; }
+
+/* ── Inputs ────────────────────────────── */
+.input {
+  width: 100%; padding: 11px 14px;
+  border: 2px solid var(--border); border-radius: var(--radius-sm);
+  font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--text);
+  background: var(--white); outline: none; transition: all .2s;
+}
+.input:focus { border-color: var(--teal); box-shadow: 0 0 0 4px rgba(0,168,150,.1); }
+.input::placeholder { color: var(--muted2); }
+.input:disabled { background: var(--bg); color: var(--muted); cursor: not-allowed; }
+
+.label {
+  display: block; font-size: 11px; font-weight: 700;
+  color: var(--text2); text-transform: uppercase;
+  letter-spacing: .07em; margin-bottom: 7px;
+}
+
+/* ── Badges / Pills ────────────────────── */
+.badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 3px 10px; border-radius: 50px;
+  font-size: 11px; font-weight: 700; line-height: 1;
+}
+.badge-teal   { background: var(--teal-light); color: var(--teal); }
+.badge-navy   { background: #E8EDF8; color: var(--navy); }
+.badge-red    { background: #FEE2E2; color: #DC2626; }
+.badge-gold   { background: #FEF3C7; color: #92400E; }
+.badge-green  { background: #DCFCE7; color: var(--green); }
+.badge-purple { background: #EDE9FE; color: var(--purple); }
+
+/* ── Tabla ─────────────────────────────── */
+.table-wrap { overflow-x: auto; border-radius: var(--radius); border: 1px solid var(--border); }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+thead th {
+  padding: 11px 14px; background: var(--bg2);
+  font-weight: 700; color: var(--muted); font-size: 10px;
+  text-transform: uppercase; letter-spacing: .08em;
+  border-bottom: 1px solid var(--border); text-align: left;
+}
+tbody td { padding: 12px 14px; border-bottom: 1px solid var(--border2); color: var(--text2); }
+tbody tr:last-child td { border-bottom: none; }
+tbody tr:hover td { background: var(--bg2); }
+
+/* ── Alertas ───────────────────────────── */
+.alert { padding: 12px 16px; border-radius: var(--radius-sm); font-size: 13px; display: flex; align-items: flex-start; gap: 10px; }
+.alert-info    { background: #EFF6FF; border: 1px solid #BFDBFE; color: #1D4ED8; }
+.alert-success { background: #F0FDF4; border: 1px solid #BBF7D0; color: #15803D; }
+.alert-warning { background: #FFFBEB; border: 1px solid #FDE68A; color: #92400E; }
+.alert-error   { background: #FEF2F2; border: 1px solid #FECACA; color: #DC2626; }
+
+/* ── KPI Stat ──────────────────────────── */
+.kpi-card {
+  background: var(--white); border-radius: var(--radius-lg);
+  border: 1px solid var(--border); padding: 18px;
+  display: flex; flex-direction: column; gap: 8px;
+  transition: all .25s; cursor: default;
+}
+.kpi-card:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
+.kpi-value { font-family: 'Sora', sans-serif; font-size: 26px; font-weight: 800; color: var(--navy); }
+.kpi-label { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .07em; }
+.kpi-trend-up   { font-size: 11px; font-weight: 700; color: var(--green); }
+.kpi-trend-down { font-size: 11px; font-weight: 700; color: var(--red); }
+
+/* ── Loader ────────────────────────────── */
+.spinner {
+  width: 20px; height: 20px;
+  border: 2.5px solid var(--border);
+  border-top-color: var(--teal);
+  border-radius: 50%;
+  animation: spin .7s linear infinite;
+}
+
+/* ── Animaciones ───────────────────────── */
+@keyframes spin     { to { transform: rotate(360deg); } }
+@keyframes fadeUp   { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
+@keyframes fadeIn   { from { opacity:0; } to { opacity:1; } }
+@keyframes pulse    { 0%,100% { opacity:1; } 50% { opacity:.5; } }
+@keyframes slideIn  { from { transform:translateX(-10px); opacity:0; } to { transform:translateX(0); opacity:1; } }
+@keyframes scaleIn  { from { transform:scale(.95); opacity:0; } to { transform:scale(1); opacity:1; } }
+
+.animate-fadeUp  { animation: fadeUp .5s ease both; }
+.animate-fadeIn  { animation: fadeIn .4s ease both; }
+.animate-slideIn { animation: slideIn .4s ease both; }
+.animate-scaleIn { animation: scaleIn .3s ease both; }
+
+/* Stagger helpers */
+.stagger-1 { animation-delay: .05s; }
+.stagger-2 { animation-delay: .10s; }
+.stagger-3 { animation-delay: .15s; }
+.stagger-4 { animation-delay: .20s; }
+.stagger-5 { animation-delay: .25s; }
+
+/* ── Grid helpers ──────────────────────── */
+.grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+
+/* ── Sidebar nav active ────────────────── */
+.nav-item-active {
+  background: rgba(0,200,177,.15) !important;
+  color: #fff !important;
+}
+
+/* ── Charts tooltip ────────────────────── */
+.recharts-tooltip-wrapper { outline: none !important; }
+
+/* ── Responsive básico ─────────────────── */
+@media (max-width: 900px) {
+  .grid-4 { grid-template-columns: repeat(2, 1fr); }
+  .grid-3 { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+  .grid-4, .grid-3, .grid-2 { grid-template-columns: 1fr; }
+}
+
+/* ── Pulido global (realismo y consistencia) ─────────── */
+html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+body { background: var(--bg, #F0F4FF); color: #1f2a44; }
+
+/* Scrollbar discreto estilo app */
+*::-webkit-scrollbar { width: 10px; height: 10px; }
+*::-webkit-scrollbar-thumb { background: #c7d0e0; border-radius: 8px; border: 2px solid transparent; background-clip: padding-box; }
+*::-webkit-scrollbar-thumb:hover { background: #aab6cc; background-clip: padding-box; }
+*::-webkit-scrollbar-track { background: transparent; }
+
+/* Transiciones suaves en elementos interactivos */
+button, a, .transition { transition: background-color .15s ease, color .15s ease, box-shadow .15s ease, transform .12s ease; }
+
+/* Tarjetas y tablas con respiro visual (clases reutilizables) */
+.ca-card { background:#fff; border:1px solid #e9edf4; border-radius:16px; box-shadow:0 1px 3px rgba(13,36,97,.06); }
+.ca-soft { box-shadow:0 2px 12px rgba(13,36,97,.08); }
+
+/* ════════════════════════════════════════════════════════
+   v13 — Refinamiento visual estilo banca peruana premium
+   ════════════════════════════════════════════════════════ */
+/* Tarjeta con borde superior de acento y elevación suave al hover */
+.ca-card-pro {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); box-shadow: var(--shadow-sm);
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+.ca-card-pro:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+
+/* Chip de estado tipo banca (Vigente, En mora, etc.) */
+.ca-pill {
+  display:inline-flex; align-items:center; gap:5px;
+  padding:3px 11px; border-radius:999px; font-size:11.5px; font-weight:700;
+  font-family:'DM Sans',sans-serif; letter-spacing:.2px;
+}
+
+/* Botón de acción rápida (estilo Plin/BBVA: ícono en círculo + label) */
+.ca-quick {
+  display:flex; flex-direction:column; align-items:center; gap:9px;
+  padding:18px 10px; border-radius:var(--radius-lg);
+  background:var(--white); border:1px solid var(--border);
+  cursor:pointer; transition:all .16s ease; text-decoration:none;
+}
+.ca-quick:hover { border-color:var(--teal); box-shadow:var(--shadow-teal); transform:translateY(-3px); }
+.ca-quick .ico {
+  width:46px; height:46px; border-radius:14px; display:grid; place-items:center;
+  font-size:21px; background:linear-gradient(135deg,var(--teal-light),#fff);
+}
+.ca-quick .lbl { font-size:12.5px; font-weight:600; color:var(--text2); text-align:center; }
+
+/* Número de cuenta monoespaciado, como en banca real */
+.ca-account-num { font-family:'DM Mono','Courier New',monospace; letter-spacing:2px; }
+
+/* Barra superior de la tarjeta de saldo (degradé institucional) */
+.ca-hero-balance {
+  background:linear-gradient(120deg,var(--navy) 0%,#16357e 55%,var(--blue) 100%);
+  border-radius:var(--radius-xl); position:relative; overflow:hidden;
+}
+.ca-hero-balance::after {
+  content:''; position:absolute; right:-40px; top:-40px;
+  width:200px; height:200px; border-radius:50%;
+  background:radial-gradient(circle,rgba(0,201,177,.18),transparent 70%);
+}
+/* Toggle ON/OFF de tarjeta (patrón BBVA) */
+.ca-switch { width:42px; height:24px; border-radius:999px; background:var(--border2); position:relative; cursor:pointer; transition:.2s; border:none; }
+.ca-switch.on { background:var(--teal); }
+.ca-switch::after { content:''; position:absolute; top:3px; left:3px; width:18px; height:18px; border-radius:50%; background:#fff; transition:.2s; box-shadow:0 1px 3px rgba(0,0,0,.2); }
+.ca-switch.on::after { left:21px; }

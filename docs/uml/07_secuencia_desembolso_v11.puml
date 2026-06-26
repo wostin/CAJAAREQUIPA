@@ -1,0 +1,29 @@
+@startuml secuencia_desembolso_v11
+' Flujo end-to-end: solicitud (Homebanking) -> aprobación -> desembolso -> saldo
+actor Cliente
+participant "Homebanking\n(React)" as HB
+participant "API\n(/api/prestamos)" as API
+actor "Comité" as Comite
+participant "Supabase\nfn_desembolsar_credito" as RPC
+database "bd compartida" as DB
+
+Cliente -> HB : Solicita crédito
+HB -> API : POST /api/prestamos
+API -> DB : INSERT solicitudes_prestamo (pendiente)
+
+Comite -> API : PUT /:id/estado {aprobado}
+API -> API : valida ruta de aprobación por monto
+API -> DB : UPDATE estado=aprobado
+
+Comite -> API : POST /:id/desembolsar
+API -> RPC : fn_desembolsar_credito(solicitud_id)
+RPC -> DB : usa/crea cuenta + saldo += monto
+RPC -> DB : INSERT transaccion (credito)
+RPC -> DB : INSERT cronograma_cuotas (n cuotas)
+RPC -> DB : INSERT creditos_preaprobados (desembolsado)
+RPC -> DB : UPDATE solicitud=desembolsado + alerta
+RPC --> API : {credito_id, saldo_nuevo, cuotas}
+API --> HB : 201 Created
+
+Cliente -> HB : Ve saldo, movimiento y cronograma
+@enduml

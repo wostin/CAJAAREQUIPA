@@ -1,0 +1,74 @@
+@startuml modelo_datos_v11
+' Modelo de datos — adiciones v11 (Recuperaciones / Integración)
+hide circle
+skinparam linetype ortho
+
+entity "auth.users" as users {
+  * id : uuid <<PK>>
+}
+
+entity "perfiles" as perfiles {
+  * id : uuid <<PK,FK users>>
+  --
+  rol : cliente|asesor|riesgos|comite|admin|gerente
+}
+
+entity "solicitudes_prestamo" as sol {
+  * id : uuid <<PK>>
+  --
+  user_id : uuid <<FK>>
+  monto, plazo_meses, cuota_mensual
+  estado : pendiente..desembolsado
+}
+
+entity "creditos_preaprobados" as cred {
+  * id : uuid <<PK>>
+  --
+  user_id : uuid <<FK>>
+  monto_aprobado, cuota_mensual, plazo_meses
+  dias_mora, estado_pago, estado
+  banda_mora : (columna generada)
+}
+
+entity "cronograma_cuotas" as cron {
+  * id : uuid <<PK>>
+  --
+  credito_id : uuid <<FK cred>>
+  user_id : uuid <<FK users>>
+  nro_cuota, fecha_vencimiento
+  cuota_total, capital, interes, saldo_capital
+  estado : pendiente|pagada|vencida|parcial
+}
+
+entity "gestiones_cobranza" as gest {
+  * id : uuid <<PK>>
+  --
+  credito_id : uuid <<FK cred>>
+  user_id : uuid <<FK users>>  (cliente)
+  gestor_id : uuid <<FK users>>
+  canal, resultado
+  compromiso_monto, compromiso_fecha
+  banda_al_gestionar, dias_mora_al_gestionar
+}
+
+entity "cuentas" as cta {
+  * id : uuid <<PK>>
+  --
+  user_id : uuid <<FK>>
+  saldo, numero_cuenta, estado
+}
+
+entity "transacciones" as tx {
+  * id : uuid <<PK>>
+  --
+  user_id, cuenta_id, tipo, categoria, monto
+}
+
+users ||--|| perfiles
+users ||--o{ sol
+users ||--o{ cred
+users ||--o{ cta
+cred ||--o{ cron
+cred ||--o{ gest
+cta ||--o{ tx
+@enduml

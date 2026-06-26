@@ -1,0 +1,32 @@
+@startuml secuencia_mora_v11
+' Módulo de Recuperaciones R1 / R2 / R3
+actor "Asesor" as Asesor
+actor "Riesgos" as Riesgos
+participant "API\n(/api/recuperaciones)" as API
+participant "Service\nrecuperaciones" as SVC
+participant "Repo\nrecuperaciones" as REPO
+database "Supabase" as DB
+
+== R1 Consulta por bandas ==
+Asesor -> API : GET /bandas
+API -> SVC : resumenCartera()
+SVC -> REPO : kpisPorBanda()
+REPO -> DB : SELECT vw_mora_bandas
+DB --> Asesor : KPIs + bandas
+
+== R2 Gestión de cobranza ==
+Asesor -> API : POST /:id/gestiones
+API -> SVC : registrarGestion()
+SVC -> SVC : valida canal/resultado
+SVC -> REPO : insertarGestion()
+REPO -> DB : INSERT gestiones_cobranza
+DB --> Asesor : 201 Created
+
+== R3 Transición (umbral) ==
+Riesgos -> API : POST /:id/judicial
+API -> API : requireRiesgos (403 si no)
+API -> SVC : transicion(judicial)
+SVC -> REPO : rpc fn_transicion_mora
+REPO -> DB : valida >=121 dias\n(EXCEPTION si no cumple)
+DB --> Riesgos : {accion, dias_mora}
+@enduml
